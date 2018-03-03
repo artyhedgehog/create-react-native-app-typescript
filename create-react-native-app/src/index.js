@@ -102,6 +102,27 @@ async function createApp(name: string, verbose: boolean, version: ?string): Prom
     name: appName,
     version: '0.1.0',
     private: true,
+    jest: {
+      preset: 'react-native',
+      transform: {
+        '^.+\\.jsx?$': './node_modules/babel-jest',
+        '^.+\\.tsx?$': 'ts-jest',
+      },
+      testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+      moduleFileExtensions: [
+        'ts',
+        'tsx',
+        'js',
+        'jsx',
+        'json',
+        'node',
+      ],
+      globals: {
+        'ts-jest': {
+          useBabelrc: true,
+        },
+      },
+    },
   };
   await fse.writeFile(path.join(root, 'package.json'), JSON.stringify(packageJson, null, 2));
   process.chdir(root);
